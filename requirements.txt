@@ -1,0 +1,6 @@
+dlx==1.0.4
+Flask==3.0.3
+Flask-WTF==1.2.1
+WTForms==3.1.2
+matplotlib==3.7.1
+

@@ -123,7 +123,6 @@ def draw_layouts(page_num, constr= False):
 		NO_SOLUTIONS= False
 
 	fig_vis= int(i/plot_cols)
-	#if fig_vis > 5: fig_vis-= 3
 	if fig_vis<7: fig_vis= 7
 	fig.set_size_inches(FIG_WIDTH, fig_vis)
 	fig.tight_layout()
@@ -147,8 +146,6 @@ from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 app = Flask(__name__)
 
 app.config['SECRET_KEY']= "Skrivnostni ključek"
-app.config['SQLALCHEMY_DATABASE_URI']= 'sqlite:///app.db'
-#db= SQLAlchemy(app)
 
 SIRINA, GLOBINA= 10,3
 VERT_C= "Brez"
@@ -159,7 +156,6 @@ class DimsForm(FlaskForm):
 	S= IntegerRangeField(label='Vertikalnih odsekov', default=10, validators=[DataRequired()] )
 	G= IntegerRangeField(label='Horizontalnih odsekov', default=3, validators=[DataRequired()] )
 	V_C= RadioField('Omejitve', choices=[('Brez','Brez'),('VERT','Vertikale'),('HOR','Horizontale'),('Oboje','Oboje')], default='Brez')
-	#BooleanField(label='Omejitve horizontal', default=False)
 	SIM= BooleanField(label='Omejitev simetrije', default=True)
 	active = BooleanField(default=True)
 	submit= SubmitField("Nastavi vrednosti")
@@ -213,14 +209,11 @@ class PieceForm(FlaskForm):
 def piece():
 	global tlkvci, plts
 	NOV= None
-	#PCS= None
 	pform= PieceForm()
-	#pform.PCS.choices= [ str(tlk) for tlk in tlkvci ]
-	#print(f"/piece {pform.NOV.data=} {pform.PCS.data=} {tlkvci=}")   #
 	
 	if pform.validate_on_submit():
-		NOV= pform.NOV.data; #PCS= pform.PCS.data
-		pform.NOV.data= ''; #pform.PCS.data= ''
+		NOV= pform.NOV.data
+		pform.NOV.data= ''
 		print(f"{NOV=} {pform} {pform.submitnew}")
 		nwe= NOV.split(',')
 		for i, ne in enumerate(nwe):

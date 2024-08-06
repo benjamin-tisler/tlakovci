@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+		<div class="row"><span><h3>Stran: {{ title }}<h3></span></div>
+		<div class="row"><span><h3>RASTER {{ S }} x {{ G }} {{ V_C }}<h3></span></div>
+
+		<div class="row">
+			<div class=col-xs-1">
+			</div>
+			<div class="col-lg-5">.
+				<img src="{{ url_for('fig', page_num = title, V_C=V_C, no_solutions=NO_SOLUTIONS ) }}" alt="Image Placeholder" class="img">
+			</div>
+		</div>
+			{% if no_solutions or no_solutions=="True" %}
+				<div class="row">
+					<h3>Ni rešitev, spljoh</h3>
+				</div>
+			{% endif %}
+	
+{% endblock%}
+
+<!-- 		{{ title }}: {{ S }} x {{ G }} -->

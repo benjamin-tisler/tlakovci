@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	<table class="table">
+		<tr class="row"><td><h2>RASTER {{ S }} x {{ G }}<h2></td></tr>
+		<tr class="row"><td>KOMADI:</td>
+			{% for tlak in tlakovci %}
+				<tr>
+					<td class=col-md-2"> {{ tlak }}	</td><td class=col-md-1"> {{ loop.index-1 }}</td>
+				</tr>
+			{% endfor %}
+		</tr>
+		<tr class="row"><td><a href="/piece">Dodaj kos</a></td></tr>
+	</table>
+{% if pform %}
+	<table class="table">
+		<!--<tr><td>{{ pform.PCS }}</td></tr>-->
+
+		<tr>
+			<form class="form" method="POST">
+				<div class="form-group">
+					{{ pform.hidden_tag() }}
+					<div>{{ pform.NOV.label}} {{ pform.NOV }}</div>
+					<div>{{ pform.submit(class="btn btn-primary") }}</div>
+					<!--div>{{ pform.submitnew(class="btn btn-primary") }}</div-->
+				</div>
+			</form>
+		</tr>
+	</table>
+{% endif %}
+
+{% endblock %}

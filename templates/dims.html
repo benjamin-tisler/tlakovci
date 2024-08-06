@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% if tlakovci %}
+	<table class="table">
+		<tr class="row"><td><h2>RASTER {{ S }} x {{ G }} {{V_C}}<h2></td></tr>
+		<tr class="row"><td>KOMADI:</td>
+			<form class="Form" method="POST"  action="">
+			{% for tlak in tlakovci %}
+				<tr>
+					<td class=col-md-2"> {{ tlak }}	</td><td class=col-md-1"> {{ form.active(value=loop.index-1) }}	</td>
+				</tr>
+			{% endfor %}
+		</tr>
+		<tr class="row"><td><a href="/piece">Dodaj kos</a></td></tr>
+	</table>
+{% endif %}
+{% if form %}
+	<form class="form" method="POST">
+		<div class="form-group">
+			<div class="row">
+			{{ form.hidden_tag() }}
+				<div class="col-md-2"><p class='s-range'>{{ S }}</p>  {{ form.S.label }} {{ form.S(class='s-input', value=S, min=5,max=30, onchange="changeSRangeValue()") }}</div>
+				<div class="col-md-3"><p class='g-range'>{{ G }}</p>  {{ form.G.label }} {{ form.G( class='g-input', value=G, min=3,max=20,onchange="changeGRangeValue()") }}</div>
+				<div class="col-md-3"><p class='constrI'>{{V_C}}</p>  {{ form.V_C.label }} {{ form.V_C(class='constrV', type="radio", value=V_C, onchange="changeConstrValue()") }}</div>
+				<div class="col-md-2"><p>{{SIM}}</p> {{ form.SIM.label}} {{ form.SIM(type="checkbox", checked=SIM) }}</div>
+				<div class="col-md-2">{{ form.submit(class="btn btn-primary") }}</div>
+			</div>
+		</div>
+	</form>
+{% endif %}
+
+
+	<script>
+		let rangeS = document.querySelector('.s-input');
+		let rangeG = document.querySelector('.g-input');
+		let cstrI= document.querySelector('.constrI');
+		let s_range = document.querySelector('.s-range');
+		let g_range = document.querySelector('.g-range');
+		let constraints= document.querySelector(".constrV");
+
+		function changeConstrValue() {
+			let val = cstrI.data;
+			console.log("Radio value:"+val+', '+cstrI+', '+constraints);
+			
+			constraints.value = val;
+		}
+		function changeSRangeValue() {
+			// get range value
+			let val = rangeS.value;
+			// set this value in <p>
+			s_range.innerHTML = val;
+		}
+		function changeGRangeValue() {
+			// get range value
+			let val = rangeG.value;
+			// set this value in <p>
+			g_range.innerHTML = val;
+			console.log("Setting innerHTML: " + val)
+
+		}
+	</script>
+
+{% endblock %}
